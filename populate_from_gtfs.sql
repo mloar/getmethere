@@ -1,8 +1,8 @@
-CREATE TABLE calendar (service_id primary key, monday, tuesday, wednesday, thursday, friday, saturday, sunday, start_date, end_date);
-CREATE TABLE routes (route_id primary key, agency_id, route_short_name, route_long_name, route_desc, route_type, route_url, route_color, route_text_color);
-CREATE TABLE trips (route_id references routes(route_id), service_id, trip_id primary key, trip_headsign, trip_short_name, direction_id, block_id, shape_id);
-CREATE TABLE stops (stop_id primary key, stop_code, stop_name, stop_desc, stop_lat, stop_lon, zone_id, stop_url, location_type, parent_station);
-CREATE TABLE stop_times (trip_id references trips(trip_id), arrival_time, departure_time, stop_id references stops(stop_id), stop_sequence, stop_headsign, pickup_type, drop_off_type, shape_dist_traveled);
+CREATE TABLE calendar (service_id primary key, monday integer not null, tuesday integer not null, wednesday integer not null, thursday integer not null, friday integer not null, saturday integer not null, sunday integer not null, start_date integer not null, end_date integer not null);
+CREATE TABLE routes (route_id primary key, agency_id, route_short_name not null, route_long_name not null, route_desc, route_type not null, route_url, route_color, route_text_color);
+CREATE TABLE trips (route_id references routes(route_id), service_id references calendar(service_id), trip_id primary key, trip_headsign, trip_short_name, direction_id, block_id, shape_id);
+CREATE TABLE stops (stop_id primary key, stop_code, stop_name not null, stop_desc, stop_lat not null, stop_lon not null, zone_id, stop_url, location_type, parent_station);
+CREATE TABLE stop_times (trip_id references trips(trip_id), arrival_time not null, departure_time not null, stop_id references stops(stop_id), stop_sequence not null, stop_headsign, pickup_type, drop_off_type, shape_dist_traveled);
 
 .mode csv
 .import calendar.txt calendar
