@@ -18,3 +18,5 @@ DELETE FROM routes WHERE route_id='route_id';
 DELETE FROM calendar WHERE service_id='service_id';
 
 CREATE INDEX arrival_times_index ON stop_times(arrival_time);
+CREATE INDEX trip_id_index on stop_times(trip_id);
+CREATE INDEX stop_id_index on stop_times(stop_id);
