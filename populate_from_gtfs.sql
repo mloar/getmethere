@@ -5,6 +5,8 @@ CREATE TABLE trips (route_id references routes(route_id), service_id references 
 CREATE TABLE stops (stop_id primary key, stop_code, stop_name not null, stop_desc, stop_lat not null, stop_lon not null, zone_id, stop_url, location_type, parent_station);
 CREATE TABLE stop_times (trip_id references trips(trip_id), arrival_time not null, departure_time not null, stop_id references stops(stop_id), stop_sequence integer not null, stop_headsign, pickup_type, drop_off_type, shape_dist_traveled);
 
+CREATE VIEW weekday_arrivals AS SELECT stop_times.* FROM stop_times LEFT JOIN trips ON stop_times.trip_id=trips.trip_id LEFT JOIN calendar ON trips.service_id=calendar.service_id WHERE monday=1 ORDER BY stop_id, arrival_time;
+
 .mode csv
 .import calendar.txt calendar
 .import routes.txt routes
